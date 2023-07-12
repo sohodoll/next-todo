@@ -1,6 +1,7 @@
 import { Todo } from '@/types/Todo'
 
-export const createTodo = (title: string, description: string): Todo => {
+export const createTodo = (title: string = 'Default title', description: string = 'Default description'): Todo => {
+  //manage the empty input case
   if (!title) {
     title = 'Default title'
   }

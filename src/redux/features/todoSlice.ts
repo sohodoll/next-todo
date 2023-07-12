@@ -42,7 +42,7 @@ export const todoSlice = createSlice({
       return {
         value: {
           ...state.value,
-          todos: [...state.value.todos].filter((todo) => todo.id !== action.payload),
+          todos: state.value.todos.filter((todo) => todo.id !== action.payload),
         },
       }
     },
