@@ -11,7 +11,7 @@
 
 ## Deploy
 
-- Deploy link:
+- Deploy link: https://nexttodolist.vercel.app/
 - Development branch: https://github.com/sohodoll/next-todo/tree/develop
 
 ## Tech Stack
