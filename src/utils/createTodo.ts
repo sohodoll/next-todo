@@ -1,6 +1,13 @@
 import { Todo } from '@/types/Todo'
 
-export const createTodo = (title: string = 'Default Title', description: string = 'Default description of a todo'): Todo => {
+export const createTodo = (title: string, description: string): Todo => {
+  if (!title) {
+    title = 'Default title'
+  }
+  if (!description) {
+    description = 'Default description'
+  }
+
   return {
     title,
     description,

@@ -1,32 +1,28 @@
 'use client'
 import { Todo } from '@/types/Todo'
-import { AppDispatch } from '@/redux/store'
-import { addTodo } from '@/redux/features/todoSlice'
-import { useDispatch } from 'react-redux'
 import { TodoElement } from './Todo'
-import { createTodo } from '@/utils/createTodo'
 import { buttonStyles } from '@/styles/button'
 import { TodoModal } from './TodoModal'
+import { useState } from 'react'
 
 export const TodoList = ({ todos }: { todos: Todo[] }) => {
-  const dispatch = useDispatch<AppDispatch>()
+  const [showModal, setShowModal] = useState(false)
 
-  const onClickAddTodo = () => {
-    // const todo = createTodo()
-    // dispatch(addTodo(todo))
+  const onCreateTodoClick = () => {
+    setShowModal(true)
   }
 
   return (
     <div className={'flex flex-col items-center'}>
-      <button data-modal-target='defaultModal' data-modal-toggle='defaultModal' className={buttonStyles}>
-        Add Todo
+      <button onClick={onCreateTodoClick} className={buttonStyles}>
+        Create Todo
       </button>
       <div className='flex flex-col gap-6 mt-10'>
         {todos.map((todo: any) => {
           return <TodoElement key={todo.id} todo={todo}></TodoElement>
         })}
       </div>
-      <TodoModal />
+      <TodoModal isVisible={showModal} onClose={() => setShowModal(false)} />
     </div>
   )
 }

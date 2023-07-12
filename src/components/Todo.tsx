@@ -20,8 +20,10 @@ export const TodoElement = ({ todo }: { todo: Todo }) => {
 
   return (
     <button onClick={onClickChangeTodoStatus} className={todo.completed ? completedTodoStyle : activeTodoStyle}>
-      <p className='text-lg'>{todo.title}</p>
-      <p className='text-sm'>{todo.description}</p>
+      <div className='flex gap-6 items-center'>
+        <p className='text-lg'>{todo.title}</p>
+        <p className='text-sm'>{todo.description}</p>
+      </div>
       <Image onClick={onClickDeleteTodo} src={deleteIcon} alt='delete icon' width={20} />
     </button>
   )
