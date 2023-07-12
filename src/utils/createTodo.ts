@@ -5,6 +5,6 @@ export const createTodo = (title: string = 'Default Title', description: string 
     title,
     description,
     completed: false,
-    id: Date.now(),
+    id: Date.now() + Math.random(), //add the math random method to avoid duplicate ids on mock todos
   }
 }

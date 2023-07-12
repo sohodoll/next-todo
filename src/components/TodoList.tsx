@@ -6,18 +6,19 @@ import { useDispatch } from 'react-redux'
 import { TodoElement } from './Todo'
 import { createTodo } from '@/utils/createTodo'
 import { buttonStyles } from '@/styles/button'
+import { TodoModal } from './TodoModal'
 
 export const TodoList = ({ todos }: { todos: Todo[] }) => {
   const dispatch = useDispatch<AppDispatch>()
 
   const onClickAddTodo = () => {
-    const todo = createTodo()
-    dispatch(addTodo(todo))
+    // const todo = createTodo()
+    // dispatch(addTodo(todo))
   }
 
   return (
     <div className={'flex flex-col items-center'}>
-      <button onClick={onClickAddTodo} className={buttonStyles}>
+      <button data-modal-target='defaultModal' data-modal-toggle='defaultModal' className={buttonStyles}>
         Add Todo
       </button>
       <div className='flex flex-col gap-6 mt-10'>
@@ -25,6 +26,7 @@ export const TodoList = ({ todos }: { todos: Todo[] }) => {
           return <TodoElement key={todo.id} todo={todo}></TodoElement>
         })}
       </div>
+      <TodoModal />
     </div>
   )
 }

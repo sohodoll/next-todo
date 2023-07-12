@@ -15,9 +15,10 @@ const initialState = {
   value: {
     todos: [],
     filter: 'all',
-  } as TodoState,
+  },
 } as InitialState
 
+//fill the initial state with mock todos
 if (initialState.value.todos.length === 0) {
   for (let i = 0; i < 3; i++) {
     const todo = createTodo()
@@ -37,8 +38,32 @@ export const todoSlice = createSlice({
         },
       }
     },
+    deleteTodo: (state, action: PayloadAction<number>) => {
+      return {
+        value: {
+          ...state.value,
+          todos: [...state.value.todos].filter((todo) => todo.id !== action.payload),
+        },
+      }
+    },
+    changeTodoStatus: (state, action: PayloadAction<number>) => {
+      return {
+        value: {
+          ...state.value,
+          todos: state.value.todos.map((todo) => {
+            if (todo.id === action.payload) {
+              return {
+                ...todo,
+                completed: !todo.completed,
+              }
+            }
+            return todo
+          }),
+        },
+      }
+    },
   },
 })
 
-export const { addTodo } = todoSlice.actions
+export const { addTodo, deleteTodo, changeTodoStatus } = todoSlice.actions
 export const todoReducer = todoSlice.reducer
