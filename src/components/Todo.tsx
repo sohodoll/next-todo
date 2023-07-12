@@ -6,17 +6,18 @@ import { Todo } from '@/types/Todo'
 import { useDispatch } from 'react-redux'
 import deleteIcon from '@/assets/icons/delete.png'
 import Image from 'next/image'
+import { useCallback } from 'react'
 
 export const TodoElement = ({ todo }: { todo: Todo }) => {
   const dispatch = useDispatch<AppDispatch>()
 
-  const onClickChangeTodoStatus = () => {
+  const onClickChangeTodoStatus = useCallback(() => {
     dispatch(changeTodoStatus(todo.id))
-  }
+  }, [dispatch, todo.id])
 
-  const onClickDeleteTodo = () => {
+  const onClickDeleteTodo = useCallback(() => {
     dispatch(deleteTodo(todo.id))
-  }
+  }, [dispatch, todo.id])
 
   return (
     <button onClick={onClickChangeTodoStatus} className={todo.completed ? completedTodoStyle : activeTodoStyle}>

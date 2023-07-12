@@ -2,7 +2,7 @@
 import { addTodo } from '@/redux/features/todoSlice'
 import { AppDispatch } from '@/redux/store'
 import { createTodo } from '@/utils/createTodo'
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, useCallback, useState } from 'react'
 import { useDispatch } from 'react-redux'
 
 export const TodoModal = ({ isVisible, onClose }: { isVisible: boolean; onClose: () => void }) => {
@@ -10,15 +10,18 @@ export const TodoModal = ({ isVisible, onClose }: { isVisible: boolean; onClose:
   const [todoDescription, setTodoDescription] = useState('')
   const dispatch = useDispatch<AppDispatch>()
 
-  const onTitleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setTodoTitle(e.target.value)
-  }
+  const onTitleInputChange = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      setTodoTitle(e.target.value)
+    },
+    [setTodoTitle]
+  )
 
-  const onDescriptionInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const onDescriptionInputChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setTodoDescription(e.target.value)
-  }
+  }, [])
 
-  const onClickAddTodo = () => {
+  const onClickAddTodo = useCallback(() => {
     const todo = createTodo(todoTitle, todoDescription)
 
     dispatch(addTodo(todo))
@@ -29,7 +32,7 @@ export const TodoModal = ({ isVisible, onClose }: { isVisible: boolean; onClose:
 
     //close the modal after adding a todo
     onClose()
-  }
+  }, [todoTitle, todoDescription, dispatch, onClose])
 
   if (!isVisible) return null
 
